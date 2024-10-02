@@ -27,6 +27,15 @@ const userSchema = new mongoose.Schema({
   country: {
     type: "String",
   },
+  profession: {
+    type: "String",
+  },
+  posts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "posts",
+    },
+  ],
   followers: {
     type: "Number",
   },

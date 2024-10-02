@@ -1,16 +1,28 @@
 const express = require("express");
 const app = express();
 const user = require("../Models/userModel");
+const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 app.use(cors());
+dotenv.config();
 
 const register = async (req, res) => {
-  let { name, userName, email, password, number, city, country } = req.body;
+  let { name, userName, email, password, number, city, country, profession } =
+    req.body;
 
-  if (!name || !userName || !email || !password || !number || !city || !country)
+  if (
+    !name ||
+    !userName ||
+    !email ||
+    !password ||
+    !number ||
+    !city ||
+    !country ||
+    !profession
+  )
     return res.status(400).json({ message: "fill the required fields" });
 
   let checkUser = await user.findOne({ email });
@@ -28,6 +40,7 @@ const register = async (req, res) => {
           number,
           city,
           country,
+          profession,
         });
         let token = jwt.sign(
           {
@@ -51,12 +64,13 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  let { userName, email, password } = req.body;
+  let { email, password } = req.body;
 
   let checkUser = await user.findOne({ email });
 
-  if (!checkUser)
-    return res.status(400).json({ message: "Something went wrong" });
+  if (!checkUser) {
+    return res.status(401).json({ message: "User not found , plz sign up" });
+  }
 
   const autenticate = await bcrypt.compare(password, checkUser.password);
 
@@ -66,7 +80,9 @@ const login = async (req, res) => {
       process.env.jwtKey
     );
 
-    res.status(200).json({ token: token });
+    res
+      .status(200)
+      .json({ checkUser, token: token, message: "Login successfull" });
   } else {
     return res.status(400).json({ error: "Login not completed" });
   }

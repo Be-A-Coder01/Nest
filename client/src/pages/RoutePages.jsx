@@ -10,10 +10,10 @@ const RoutePages = () => {
   return (
     <div className="bg-[#0F0A10]">
       <Routes>
-        <Route path="/" element={<Landing />}></Route>
+        <Route path="/nest" element={<Landing />}></Route>
         {/* <Route path="/authentication" element={<Authentication />}></Route> */}
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/signUp" element={<SignUp />}></Route>
+        <Route path="/" element={<SignUp />}></Route>
         {/* <Route path="/profile" element={}></Route> */}
       </Routes>
     </div>

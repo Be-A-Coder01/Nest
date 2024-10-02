@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../features/Authenticate/userSlice";
+import { registerUser, userDetails } from "../features/Authenticate/userSlice";
 import nest from "../assets/Nest_logo.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import addDetails from "../features/userInfo/userInfoSlice";
 
 const SignUp = () => {
   const [form, setForm] = useState();
@@ -24,8 +25,9 @@ const SignUp = () => {
   let formSubmit = async (e) => {
     e.preventDefault();
     let get = await dispatch(registerUser(form));
-    console.log(get);
     if (get.payload.token) {
+      // toast(`${get.payload.message}`);
+      // await dispatch(addDetails(get.payload.userRegistered));
       localStorage.setItem(
         "userInfo",
         JSON.stringify(get.payload.userRegistered)
@@ -89,6 +91,13 @@ const SignUp = () => {
               type="text"
               placeholder="Country"
               name="country"
+              className="pl-5 w-80 py-1  outline-none bg-[#322D33] text-sm rounded-sm"
+              onChange={userCredientials}
+            />
+            <input
+              type="text"
+              placeholder="profession"
+              name="profession"
               className="pl-5 w-80 py-1  outline-none bg-[#322D33] text-sm rounded-sm"
               onChange={userCredientials}
             />

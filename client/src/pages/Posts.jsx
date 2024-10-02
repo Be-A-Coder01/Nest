@@ -1,7 +1,22 @@
 import React from "react";
 import PostCards from "./PostCards";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addPost } from "../features/Posts/postsSlice";
 
 const Posts = () => {
+  const [content, setContent] = useState();
+
+  const dispatch = useDispatch();
+
+  let handlePostContent = (e) => {
+    setContent({ content: e.target.value });
+  };
+
+  let handlePostSubmit = async () => {
+    let get = await dispatch(addPost(content));
+    console.log(get);
+  };
   return (
     <div className="  lg:flex lg:flex-col space-y-5 w-[600px]">
       <div className="px-5 py-4 space-y-3 bg-[#1D181E] rounded-lg">
@@ -14,7 +29,9 @@ const Posts = () => {
           <input
             type="text"
             placeholder="What's on your mind.."
-            className="w-3/4 rounded-full px-3 outline-none bg-[#322D33]"
+            name="newPost"
+            className="w-3/4 rounded-full px-3 outline-none text-white bg-[#322D33]"
+            onChange={handlePostContent}
           />
         </div>
         <hr />
@@ -33,7 +50,10 @@ const Posts = () => {
               <p className="text-xs">Audio</p>
             </div>
           </div>
-          <button className="text-white bg-blue-500 rounded-full px-4 text-xs">
+          <button
+            className="text-white bg-blue-500 rounded-full px-4 text-xs"
+            onClick={handlePostSubmit}
+          >
             Post
           </button>
         </div>

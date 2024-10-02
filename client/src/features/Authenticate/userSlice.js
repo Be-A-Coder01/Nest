@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const registerUser = createAsyncThunk(
   "registerUser",
   async (data, rejectwithvalue) => {
+    console.log(typeof data);
     let response = await fetch("http://localhost:7000/signup", {
       method: "POST",
       body: JSON.stringify(data),

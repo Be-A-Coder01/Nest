@@ -11,8 +11,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const userRouter = require("./Routers/userRouter");
+const postRouter = require("./Routers/postRouter");
 
 app.use("/", userRouter);
+app.use("/", postRouter);
 
 app.get("/", (req, res) => {
   res.send("Helo");

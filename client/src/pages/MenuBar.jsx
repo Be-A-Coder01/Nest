@@ -11,7 +11,10 @@ const MenuBar = () => {
     >
       <div className=" lg:flex lg:space-x-14 justify-center items-center">
         {/* <p className="text-[#13CDEA] lg:text-3xl">nest</p> */}
-        <img src={nest} alt="logo" className="lg:h-7" />
+        <Link to="/nest">
+          <img src={nest} alt="logo" className="lg:h-7" />
+        </Link>
+
         <input
           className=" bg-[#2F2E31] px-4 outline-none h-7 lg:w-60 rounded-md text-xs"
           placeholder="search..."
@@ -21,7 +24,7 @@ const MenuBar = () => {
       <div className=" lg:flex lg:space-x-7 text-white justify-center items-center">
         <i class="fa-solid fa-sun "></i>
         <i class="fa-brands fa-facebook-messenger"></i>
-        <p className="text-white lg:text-xl">
+        <p className="text-white lg:text-lg">
           <Link to="/login">Login</Link>
         </p>
       </div>
