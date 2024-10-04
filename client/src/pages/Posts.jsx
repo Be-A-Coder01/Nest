@@ -1,11 +1,13 @@
 import React from "react";
 import PostCards from "./PostCards";
+import "./style.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addPost } from "../features/Posts/postsSlice";
 
 const Posts = () => {
   const [content, setContent] = useState();
+  const [postImage, setPostImage] = useState();
 
   const dispatch = useDispatch();
 
@@ -13,9 +15,28 @@ const Posts = () => {
     setContent({ content: e.target.value });
   };
 
-  let handlePostSubmit = async () => {
-    let get = await dispatch(addPost(content));
-    console.log(get);
+  let handlePostImage = async (event) => {
+    await setPostImage(event.target.files[0]);
+  };
+  console.log(postImage);
+
+  let handlePostSubmit = async (e) => {
+    if (content) {
+      let get = await dispatch(addPost(content));
+    } else if (postImage) {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append("postImage", postImage);
+      console.log();
+      let fetchAPI = await fetch("http://localhost:7000/postsImage", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      });
+    }
   };
   return (
     <div className="  lg:flex lg:flex-col space-y-5 w-[600px]">
@@ -38,8 +59,22 @@ const Posts = () => {
         <div className="lg:flex justify-evenly  py-1">
           <div className=" text-[#848385] lg:flex lg:justify-start space-x-32 px-10  w-full">
             <div className="lg:flex lg:items-center space-x-1">
-              <i class="fa-regular fa-image text-sm"></i>
-              <p className="text-xs">Image</p>
+              <form action="">
+                <label
+                  htmlFor="uploadBtn"
+                  className="text-xs lg:flex lg:items-center"
+                  onChange={handlePostImage}
+                >
+                  <i class="fa-regular fa-image text-sm mr-1"></i>
+                  Image
+                  <input
+                    type="file"
+                    name="image"
+                    className="hidden"
+                    id="uploadBtn"
+                  />
+                </label>
+              </form>
             </div>
             <div className="lg:flex lg:items-center space-x-1">
               <i class="fa-solid fa-paperclip text-sm"></i>

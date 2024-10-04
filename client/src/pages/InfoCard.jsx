@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import defaultpic from "/defaultProfilePic.png";
 
 const InfoCard = () => {
   const [info, setInfo] = useState();
@@ -28,10 +29,12 @@ const InfoCard = () => {
             <div className="lg:flex   lg:items-center lg:justify-between">
               <div className="lg:flex   lg:space-x-5 lg:items-center lg:w-64">
                 <img
-                  src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg?fit=640%2C427"
+                  // src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg?fit=640%2C427"
+                  src={info.profilePic}
                   alt="profile pic"
-                  className="h-10 lg:items-center w-10 rounded-full"
+                  className="h-10 bg-[#322D33]  lg:items-center w-10 rounded-full"
                 />
+
                 <div className="lg:flex lg:flex-col justify-center ">
                   <p className="text-[14px] ">{info.userName}</p>
                   <span className="text-[10px] text-[#848385]">2 friends</span>

@@ -6,6 +6,7 @@ export const addPost = createAsyncThunk("addPost", async (data) => {
     body: JSON.stringify(data),
     headers: {
       "Content-type": "application/json",
+      Authorization: JSON.parse(localStorage.getItem("userToken")),
     },
   });
 

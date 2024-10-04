@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registerUser, userDetails } from "../features/Authenticate/userSlice";
+import { registerUser } from "../features/Authenticate/userSlice";
 import nest from "../assets/Nest_logo.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import addDetails from "../features/userInfo/userInfoSlice";
+import "./style.css";
 
 const SignUp = () => {
   const [form, setForm] = useState();
@@ -101,6 +102,7 @@ const SignUp = () => {
               className="pl-5 w-80 py-1  outline-none bg-[#322D33] text-sm rounded-sm"
               onChange={userCredientials}
             />
+
             <input
               type="password"
               placeholder="password"
