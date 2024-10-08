@@ -3,7 +3,7 @@ import PostCards from "./PostCards";
 import "./style.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addPost } from "../features/Posts/postsSlice";
+import { addPost, addPostImage, fetchPost } from "../features/Posts/postsSlice";
 
 const Posts = () => {
   const [content, setContent] = useState();
@@ -11,32 +11,43 @@ const Posts = () => {
 
   const dispatch = useDispatch();
 
-  let handlePostContent = (e) => {
-    setContent({ content: e.target.value });
+  let fetchPostData = async () => {
+    let data = await dispatch(fetchPost());
+    console.log(data);
+  };
+
+  fetchPostData();
+
+  let handlePostContent = async (e) => {
+    setContent({ content: `${e.target.value}` });
+    console.log(content);
   };
 
   let handlePostImage = async (event) => {
-    await setPostImage(event.target.files[0]);
+    setPostImage(event.target.files[0]);
   };
-  console.log(postImage);
 
   let handlePostSubmit = async (e) => {
-    if (content) {
+    if (content && !postImage) {
       let get = await dispatch(addPost(content));
     } else if (postImage) {
       e.preventDefault();
-
       const formData = new FormData();
-      formData.append("postImage", postImage);
-      console.log();
-      let fetchAPI = await fetch("http://localhost:7000/postsImage", {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      });
+      await formData.append("postImage", postImage);
+
+      dispatch(addPostImage(formData));
+      setPostImage("");
     }
+    // const result = await axios.post(
+    //   "http://localhost:7000/postsImage",
+    //   formData,
+    //   {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //       Authorization: JSON.parse(localStorage.getItem("userToken")),
+    //     },
+    //   }
+    // );
   };
   return (
     <div className="  lg:flex lg:flex-col space-y-5 w-[600px]">

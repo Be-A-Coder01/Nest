@@ -18,13 +18,13 @@ const InfoCard = () => {
     profile();
   }, []);
 
-  console.log(info);
+  // console.log(info);
   // profile();
 
   return (
     <>
       {info && (
-        <div className="border-2 border-red-500 w-[300px] lg:h-fit space-y-4 py-5 bg-[#1D181E] px-6 text-white rounded-lg">
+        <div className=" w-[300px] lg:h-fit space-y-4 py-5 bg-[#1D181E] px-6 text-white rounded-lg">
           <div className=" ">
             <div className="lg:flex   lg:items-center lg:justify-between">
               <div className="lg:flex   lg:space-x-5 lg:items-center lg:w-64">

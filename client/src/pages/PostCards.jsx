@@ -19,8 +19,8 @@ const PostCards = () => {
         <i class="fa-solid fa-user-plus text-[8px]"></i>
       </div>
       <div className="text-white  px-14 ">
-        <p className="text-xs my-2">finallllly! PEACE</p>
-        <div className="h-[500px] ">
+        {/* <p className="text-xs my-2">finallllly! PEACE</p> */}
+        <div className="h-[500px] mt-4">
           <img
             src="https://images.herzindagi.info/image/2023/Aug/mysterious-damru-sound-and-temple-of-kailash-parvat.jpg"
             alt="post"

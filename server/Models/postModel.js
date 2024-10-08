@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema({
     type: "String",
   },
   postImage: {
-    type: "Mixed",
+    type: "String",
   },
   userId: [
     {
