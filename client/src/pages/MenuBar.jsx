@@ -1,9 +1,17 @@
 import React from "react";
 import "./style.css";
 import nest from "../assets/Nest_logo.png";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchPost } from "../features/Posts/fetchPostData";
 
 const MenuBar = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPost());
+  }, []);
   return (
     <div
       className="lg:flex lg:flex-row lg:justify-between lg:px-10 lg:py-3  bg-[#1A191C]"

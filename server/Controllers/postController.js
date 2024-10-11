@@ -46,7 +46,7 @@ const postImage = async (req, res) => {
 const postData = async (req, res) => {
   let data = await post.find({});
   // console.log(data);
-  res.status(201).json(data);
+  res.status(201).json(data.reverse());
 };
 
 module.exports = { postadd, postImage, postData };

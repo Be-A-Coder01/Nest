@@ -1,10 +1,11 @@
 import React from "react";
 
-const PostCards = () => {
+const PostCards = ({ data }) => {
+  console.log(data.postImage);
   return (
-    <div className="bg-[#1D181E] lg:flex lg:flex-col space-y-2 rounded-lg py-5">
+    <div className="bg-[#1D181E]  lg:flex lg:flex-col space-y-2 rounded-lg py-5">
       <div className="lg:flex    text-white px-14 lg:justify-between items-center">
-        <div className="lg:flex  lg:space-x-5 lg:items-center lg:w-64">
+        <div className="lg:flex lg:space-x-5 lg:items-center lg:w-64">
           <img
             src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg?fit=640%2C427"
             alt="profile pic"
@@ -20,13 +21,17 @@ const PostCards = () => {
       </div>
       <div className="text-white  px-14 ">
         {/* <p className="text-xs my-2">finallllly! PEACE</p> */}
-        <div className="h-[500px] mt-4">
-          <img
-            src="https://images.herzindagi.info/image/2023/Aug/mysterious-damru-sound-and-temple-of-kailash-parvat.jpg"
-            alt="post"
-            className="h-full"
-          />
-        </div>
+        {data.content ? (
+          <p className="text-sm my-2">{data.content}</p>
+        ) : (
+          <div className="h-[500px] mt-4">
+            <img
+              src={`http://localhost:7000/${data.postImage}`}
+              alt="post"
+              className="h-full"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

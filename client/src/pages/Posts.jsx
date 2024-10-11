@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PostCards from "./PostCards";
+import defaultPost from "/defaultPost.jpg";
 import "./style.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addPost, addPostImage, fetchPost } from "../features/Posts/postsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost, addPostImage } from "../features/Posts/postsSlice";
+import { fetchPost } from "../features/Posts/fetchPostData";
 
 const Posts = () => {
   const [content, setContent] = useState();
@@ -11,12 +13,18 @@ const Posts = () => {
 
   const dispatch = useDispatch();
 
+  // if (postContent.content) {
+  //   console.log(postContent, "postContent");
+  // } else {
+  //   console.log(postContent, "postImage");
+  // }
+
   let fetchPostData = async () => {
-    let data = await dispatch(fetchPost());
+    let data = await useSelector();
     console.log(data);
   };
 
-  fetchPostData();
+  // fetchPostData();
 
   let handlePostContent = async (e) => {
     setContent({ content: `${e.target.value}` });
@@ -29,7 +37,9 @@ const Posts = () => {
 
   let handlePostSubmit = async (e) => {
     if (content && !postImage) {
+      console.log("content");
       let get = await dispatch(addPost(content));
+      await dispatch(fetchPost());
     } else if (postImage) {
       e.preventDefault();
       const formData = new FormData();
@@ -37,6 +47,7 @@ const Posts = () => {
 
       dispatch(addPostImage(formData));
       setPostImage("");
+      await dispatch(fetchPost());
     }
     // const result = await axios.post(
     //   "http://localhost:7000/postsImage",
@@ -49,6 +60,8 @@ const Posts = () => {
     //   }
     // );
   };
+  const { postContent } = useSelector((state) => state.post);
+  console.log(postContent, "uppper");
   return (
     <div className="  lg:flex lg:flex-col space-y-5 w-[600px]">
       <div className="px-5 py-4 space-y-3 bg-[#1D181E] rounded-lg">
@@ -104,10 +117,38 @@ const Posts = () => {
           </button>
         </div>
       </div>
-      <div className="lg:flex lg:flex-col space-y-10">
-        <PostCards></PostCards>
-        <PostCards></PostCards>
+      <div className="bg-[#1D181E]  lg:flex lg:flex-col space-y-2 rounded-lg py-5">
+        <div className="lg:flex    text-white px-14 lg:justify-between items-center">
+          <div className="lg:flex lg:space-x-5 lg:items-center lg:w-64">
+            <img
+              src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg?fit=640%2C427"
+              alt="profile pic"
+              className="h-8 lg:items-center w-8 rounded-full"
+            />
+            <div className="lg:flex lg:flex-col justify-center ">
+              <p className="text-[12px] ">Nayka Cosmetics</p>
+              <span className="text-[8px] text-[#848385]">Mumbai ,India</span>
+            </div>
+          </div>
+
+          <i class="fa-solid fa-user-plus text-[8px]"></i>
+        </div>
+        <div className="text-white  px-14 ">
+          <p className="text-sm my-2"></p>
+
+          <div className="h-[500px] mt-4">
+            <img src={defaultPost} alt="post" className="h-full" />
+          </div>
+        </div>
       </div>
+      {console.log(postContent, "test")}
+      {postContent && (
+        <div className="lg:flex lg:flex-col space-y-10">
+          {postContent.map((ele) => (
+            <PostCards data={ele}></PostCards>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

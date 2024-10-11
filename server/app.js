@@ -9,6 +9,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("uploads"));
 
 const userRouter = require("./Routers/userRouter");
 const postRouter = require("./Routers/postRouter");
