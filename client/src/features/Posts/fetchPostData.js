@@ -3,7 +3,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchPost = createAsyncThunk(
   "fetchPost",
   async (data, rejectwithvalue) => {
-    const response = await fetch("http://localhost:7000/postData");
+    const response = await fetch("http://localhost:7000/postData", {
+      headers: {
+        Authorization: JSON.parse(localStorage.getItem("userToken")),
+      },
+    });
     const result = await response.json();
 
     try {

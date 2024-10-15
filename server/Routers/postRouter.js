@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 
 router.post("/posts", isLoggedIn, postadd);
 router.post("/postsImage", isLoggedIn, upload.single("postImage"), postImage);
-router.get("/postData", postData);
+router.get("/postData", isLoggedIn, postData);
 
 async function isLoggedIn(req, res, next) {
   let token = req.headers.authorization;

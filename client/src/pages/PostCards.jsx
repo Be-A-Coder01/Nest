@@ -1,7 +1,6 @@
 import React from "react";
 
-const PostCards = ({ data }) => {
-  console.log(data.postImage);
+const PostCards = ({ Postdata, userData }) => {
   return (
     <div className="bg-[#1D181E]  lg:flex lg:flex-col space-y-2 rounded-lg py-5">
       <div className="lg:flex    text-white px-14 lg:justify-between items-center">
@@ -12,21 +11,20 @@ const PostCards = ({ data }) => {
             className="h-8 lg:items-center w-8 rounded-full"
           />
           <div className="lg:flex lg:flex-col justify-center ">
-            <p className="text-[12px] ">Shruti patel</p>
-            <span className="text-[8px] text-[#848385]">Mumbai ,India</span>
+            <p className="text-[12px] ">{userData.name}</p>
+            <span className="text-[8px] text-[#848385]">{`${userData.city} , ${userData.country}`}</span>
           </div>
         </div>
 
         <i class="fa-solid fa-user-plus text-[8px]"></i>
       </div>
       <div className="text-white  px-14 ">
-        {/* <p className="text-xs my-2">finallllly! PEACE</p> */}
-        {data.content ? (
-          <p className="text-sm my-2">{data.content}</p>
+        {Postdata.content ? (
+          <p className="text-sm my-2">{Postdata.content}</p>
         ) : (
           <div className="h-[500px] mt-4">
             <img
-              src={`http://localhost:7000/${data.postImage}`}
+              src={`http://localhost:7000/${Postdata.postImage}`}
               alt="post"
               className="h-full"
             />

@@ -88,4 +88,11 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const userList = async (req, res) => {
+  const userList = (await user.find({})).filter(
+    (user) => user.email != req.user.email
+  );
+  res.status(200).json({ userList });
+};
+
+module.exports = { register, login, userList };

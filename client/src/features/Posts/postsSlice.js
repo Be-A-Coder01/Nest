@@ -21,20 +21,20 @@ export const addPost = createAsyncThunk("addPost", async (data) => {
 
 export const addPostImage = createAsyncThunk(
   "addPostImage",
-  async (data, rejectwithvalue) => {
-    console.log(data, "ji");
-    const result = await axios.post("http://localhost:7000/postsImage", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: JSON.parse(localStorage.getItem("userToken")),
-      },
-    });
-
-    try {
-      return result;
-    } catch (error) {
-      rejectwithvalue(error);
-    }
+  (data, rejectwithvalue) => {
+    axios
+      .post("http://localhost:7000/postsImage", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: JSON.parse(localStorage.getItem("userToken")),
+        },
+      })
+      .then(function (response) {
+        return response;
+      })
+      .catch((error) => {
+        return error;
+      });
   }
 );
 

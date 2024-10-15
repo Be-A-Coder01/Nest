@@ -13,19 +13,6 @@ const Posts = () => {
 
   const dispatch = useDispatch();
 
-  // if (postContent.content) {
-  //   console.log(postContent, "postContent");
-  // } else {
-  //   console.log(postContent, "postImage");
-  // }
-
-  let fetchPostData = async () => {
-    let data = await useSelector();
-    console.log(data);
-  };
-
-  // fetchPostData();
-
   let handlePostContent = async (e) => {
     setContent({ content: `${e.target.value}` });
     console.log(content);
@@ -44,10 +31,10 @@ const Posts = () => {
       e.preventDefault();
       const formData = new FormData();
       await formData.append("postImage", postImage);
-
-      dispatch(addPostImage(formData));
-      setPostImage("");
-      await dispatch(fetchPost());
+      let get = await dispatch(addPostImage(formData));
+      console.log(get, "test");
+      // dispatch(fetchPost());
+      // setPostImage("");
     }
     // const result = await axios.post(
     //   "http://localhost:7000/postsImage",
@@ -61,9 +48,9 @@ const Posts = () => {
     // );
   };
   const { postContent } = useSelector((state) => state.post);
-  console.log(postContent, "uppper");
+
   return (
-    <div className="  lg:flex lg:flex-col space-y-5 w-[600px]">
+    <div className="   lg:flex lg:flex-col space-y-5 w-[600px]">
       <div className="px-5 py-4 space-y-3 bg-[#1D181E] rounded-lg">
         <div className="lg:flex justify-center space-x-7">
           <img
@@ -117,6 +104,17 @@ const Posts = () => {
           </button>
         </div>
       </div>
+
+      {postContent && (
+        <div className="lg:flex lg:flex-col space-y-10">
+          {postContent.postData.map((ele, i) => (
+            <PostCards
+              userData={postContent.userData}
+              Postdata={ele}
+            ></PostCards>
+          ))}
+        </div>
+      )}
       <div className="bg-[#1D181E]  lg:flex lg:flex-col space-y-2 rounded-lg py-5">
         <div className="lg:flex    text-white px-14 lg:justify-between items-center">
           <div className="lg:flex lg:space-x-5 lg:items-center lg:w-64">
@@ -141,14 +139,6 @@ const Posts = () => {
           </div>
         </div>
       </div>
-      {console.log(postContent, "test")}
-      {postContent && (
-        <div className="lg:flex lg:flex-col space-y-10">
-          {postContent.map((ele) => (
-            <PostCards data={ele}></PostCards>
-          ))}
-        </div>
-      )}
     </div>
   );
 };

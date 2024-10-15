@@ -6,7 +6,6 @@ import { registerUser } from "../features/Authenticate/userSlice";
 import nest from "../assets/Nest_logo.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import addDetails from "../features/userInfo/userInfoSlice";
 import "./style.css";
 
 const SignUp = () => {
